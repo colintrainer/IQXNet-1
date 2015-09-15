@@ -1,0 +1,21 @@
+include ./standard-blocks.jade
+
++Container
+  +Form
+    +FormField('text','Forenames','Forenames',{'required':true})
+    +FormField('text','Surname','Surname',{'required':true})
+    +FormSelect('Gender','Gender',[{'Value':'M','Descrip':'Male'},{'Value':'F','Descrip':'Female'}],{})
+    +FormDatePopup('DOB','Date of Birth',{'required':true})
+    +FormField('text','Mobile','Mobile',{})
+    +FormField('text','DayPhone','Day Phone',{})
+    +FormField('email','Email','Email',{'required':true})
+    +FormField('text','Addr1','Address',{'required':true})
+    +FormField('text','Addr2','',{})
+    +FormField('text','Addr3','',{})
+    +FormField('text','Town','Town',{})
+    +FormField('text','County','County',{})
+    +FormField('text','Country','Country',{})
+    +FormField('text','Postcode','Postcode',{'required':true,'class':'uppercase'})
+    iqx-questionnaire(questions='tags')
+    
+    

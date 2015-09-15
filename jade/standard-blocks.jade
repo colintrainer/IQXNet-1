@@ -1,0 +1,73 @@
+mixin Container
+  .container
+    block
+    
+mixin Form
+  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='update()')
+    block
+    .mybottomspacer
+    .myerrorspacer(ng-if='formError')
+    footer.navbar-default.navbar-fixed-bottom
+      .container
+        .text-danger(ng-if='formError') {{ formError }}
+        .btn-group.btn-group-justified(role='group', ng-show='!isEditing && !autoEdit')
+          .btn-group(role='group')
+            button.btn.btn-success.btn-default(type='button', ng-click='setEditing(true)') Edit
+          .btn-group(role='group')
+            button.btn.btn-success.btn-default(type='button', ng-click='fetch()') Refresh
+        .btn-group.btn-group-justified(role='group', ng-show='isEditing')
+          .btn-group(role='group')
+            button.btn.btn-success.btn-default(type='submit') {{ saveButtonCaption || 'Save' }}
+          .btn-group(role='group', ng-show='!autoEdit')
+            button.btn.btn-success.btn-default(type='button', ng-click='reset()') Cancel
+    
+mixin MiniForm
+  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='save()')
+    block
+    
+mixin FormField(sType,sID,sLabel,oAttrs)
+  .form-group
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10
+      input.form-control(type=sType, id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+    
+mixin FormSelect(sID,sLabel,aChoices,oAttrs)
+  .form-group
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10
+      select.form-control(id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
+        each item in aChoices
+          option(value=item.Value)= item.Descrip
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+
+mixin FormDatePopup(sID,sLabel,oAttrs)
+  .form-group
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10
+      p.input-group
+        input.form-control(type='text', id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing', datepicker-popup='{{dateFormat}}', is-open='dateIsOpen.'+sID, datepicker-options='dateOptions')&attributes(oAttrs)
+        span.input-group-btn
+          button.btn.btn-default(type='button', ng-disabled='!isEditing', ng-click='dateOpen($event,\''+sID+'\')')
+            i.glyphicon.glyphicon-calendar
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+      
+mixin FormCheckbox(sID,sLabel,oAttrs)
+  .form-group
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10.checkbox
+      input.form-control(type='checkbox', id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+    
+mixin FormFile(sID,sLabel,oAttrs)
+  .form-group
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10
+      .form-control.btn.btn-success.btn-default(id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing', ngf-select='uploadSelect($files, $file, $event)', ngf-drop='uploadSelect($files, $file, $event)')&attributes(oAttrs) {{uploadFileName()}}
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages-upload.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+      
+mixin FormFileUpload
+  .btn-group.btn-group-justified(role='group', ng-show='theForm.$valid')
+    .btn-group(role='group')
+      button.btn.btn-primary.btn-default(type='button', ng-click='uploadExecute()') Upload
+    

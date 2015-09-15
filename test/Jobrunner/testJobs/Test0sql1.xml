@@ -1,0 +1,5 @@
+<Job>
+<SetVariable name="myvar" sql="select name from iqxnetuser where iqxnetuserid='TEST.NOBODY'" />
+<MessageDialog text='{myvar}'/>
+<Write>{myvar}</Write>
+</Job>

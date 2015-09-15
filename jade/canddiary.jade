@@ -1,0 +1,31 @@
+.container-fluid
+
+
+  h2.text-center {{ calendarTitle }}
+
+  .row
+    .col-md-6.text-center
+      .btn-group
+        button.btn.btn-primary(mwl-date-modifier, date="calendarDay", decrement="calendarView") Previous
+        button.btn.btn-default(mwl-date-modifier, date="calendarDay", set-to-today) Today
+        button.btn.btn-primary(mwl-date-modifier, date="calendarDay", increment="calendarView") Next
+    br.visible-xs.visible-sm
+    .col-md-6.text-center
+      .btn-group
+        label.btn.btn-primary(ng-model="calendarView", btn-radio!="'year'") Year 
+        label.btn.btn-primary(ng-model="calendarView", btn-radio!="'month'") Month
+        label.btn.btn-primary(ng-model="calendarView", btn-radio!="'week'") Week
+        label.btn.btn-primary(ng-model="calendarView", btn-radio!="'day'") Day
+
+  br
+  
+  mwl-calendar(events="events",
+    view="calendarView",
+    view-title="calendarTitle",
+    current-day="calendarDay",
+    on-event-click="eventClicked(calendarEvent)",
+    edit-event-html!="'<i class=\\'glyphicon glyphicon-pencil\\'></i>'",
+    delete-event-html!="'<i class=\\'glyphicon glyphicon-remove\\'></i>'",
+    on-edit-event-click="eventEdited(calendarEvent)",
+    on-delete-event-click="eventDeleted(calendarEvent)",
+    auto-open="false")

@@ -1,0 +1,53 @@
+.form-group
+  label.control-label.col-sm-2(for="{{tag.id}}") {{tag.description}}
+  .col-sm-10(ng-switch="tag.tagtype")
+    input.form-control(ng-switch-when="T", type="text", id="{{tag.id}}", name="{{tag.id}}", ng-disabled='!isEditing', ng-model='tag.value', ng-required='tag.required')
+    input.form-control.uppercase(ng-switch-when="U", type="text", id="{{tag.id}}", name="{{tag.id}}", ng-disabled='!isEditing', ng-model='tag.value', ng-required='tag.required')
+    input.form-control(ng-switch-when="N", type="number", id="{{tag.id}}", name="{{tag.id}}", ng-disabled='!isEditing', ng-model='tag.value', ng-required='tag.required')
+    select.form-control(ng-switch-when="M", id="{{tag.id}}", name="{{tag.id}}", ng-disabled='!isEditing', ng-model='tag.value', ng-options='choice.tagchoiceid as choice.description for choice in tag.choices', ng-required='tag.required')
+    p.input-group(ng-switch-when="D")
+      input.form-control(type='text', id="{{tag.id}}", name="{{tag.id}}", ng-disabled='!isEditing', ng-model='tag.value', datepicker-popup='{{dateFormat}}', datepicker-options='dateOptions', is-open='tag.dateIsOpen', ng-required='tag.required')
+      span.input-group-btn
+        button.btn.btn-default(type='button', ng-disabled='!isEditing', ng-click='tag.dateOpen($event)')
+          i.glyphicon.glyphicon-calendar
+    input-group.iqx-input-group(ng-switch-when="L") 
+      .form-control.iqx-multi-select(ng-click="tag.wellOpen=!tag.wellOpen", ng-disabled='!isEditing', id="{{tag.id}}") {{tag.value}}
+        span.glyphicon.glyphicon-triangle-bottom.pull-right
+      input(type='hidden', name='{{tag.id}}', ng-model='tag.value', ng-required='tag.required')
+      div(collapse="!tag.wellOpen")
+        .well.well-lg
+          .row(ng-repeat='choice in tag.choices')
+            label.control-label.checkbox.col-sm-6.col-xs-6(for="{{choice.id}}") {{choice.description}}
+            .col-sm-6.col-xs-6.checkbox
+              input.form-control(type="checkbox", id="{{choice.id}}", ng-model='choice.value', ng-disabled='!isEditing', ng-change='tag.updateDescription()')
+    .input-group.iqx-input-group(ng-switch-when="G") 
+      .form-control.iqx-multi-select(ng-click="tag.wellOpen=!tag.wellOpen", ng-disabled='!isEditing', id="{{tag.id}}") {{tag.value}}
+        span.glyphicon.glyphicon-triangle-bottom.pull-right
+      input(type='hidden', name='{{tag.id}}', ng-model='tag.value', ng-required='tag.required')
+      div(collapse="!tag.wellOpen")
+        .well.well-lg
+          .row(ng-repeat='choice in tag.choices')
+            label.control-label.col-sm-6(for="{{choice.id}}") {{choice.description}}
+            .col-sm-6
+              select.form-control(ng-model='choice.value', id="{{choice.id}}", ng-disabled='!isEditing', ng-options='subChoice.value as subChoice.description for subChoice in tag.subChoices', ng-change='tag.updateDescription()')
+    .input-group.iqx-input-group(ng-switch-when="S") 
+      .form-control.iqx-multi-select(ng-click="tag.wellOpen=!tag.wellOpen", ng-disabled='!isEditing', id="{{tag.id}}") {{tag.value}} 
+        span.glyphicon.glyphicon-triangle-bottom.pull-right
+      input(type='hidden', name='{{tag.id}}', ng-model='tag.value', ng-required='tag.required')
+      div(collapse="!tag.wellOpen")
+        .well.well-lg
+          .row(ng-repeat='choice in tag.choices')
+            label.control-label.col-sm-6(for="{{choice.id}}") {{choice.description}}
+            .col-sm-6
+              input.form-control(type="number", id="{{choice.id}}", ng-model='choice.value', ng-disabled='!isEditing', ng-change='tag.updateDescription()')
+    .input-group.iqx-input-group(ng-switch-when="Q") 
+      .form-control.iqx-multi-select(ng-click="tag.wellOpen=!tag.wellOpen", ng-disabled='!isEditing', id="{{tag.id}}") {{tag.value}}
+        span.glyphicon.glyphicon-triangle-bottom.pull-right
+      input(type='hidden', name='{{tag.id}}', ng-model='tag.value', ng-required='tag.required')
+      div(collapse="!tag.wellOpen")
+        .well.well-lg
+          .row(ng-repeat='choice in tag.choices')
+            label.control-label.col-sm-6(for="{{choice.id}}") {{choice.description}}
+            .col-sm-6
+              select.form-control(ng-model='choice.value', id="{{choice.id}}", ng-disabled='!isEditing', ng-options='subChoice.tagchoiceid as subChoice.description for subChoice in choice.subChoices', ng-change='tag.updateDescription()')
+    .text-danger(ng-messages='tag.formField.$error', ng-messages-include='/views/error-messages.html' ng-if='isSubmitted || tag.formField.$touched')

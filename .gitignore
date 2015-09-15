@@ -1,3 +1,10 @@
+# IQXNet
+assets
+dbsql
+dump
+views
+node_modules
+
 # Logs
 logs
 *.log

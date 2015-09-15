@@ -1,0 +1,66 @@
+<Job title="NetAPI Setup">
+ <IfYesDialog text="This job will update the NetAPI database procedures and rights. Ok to proceed?">
+  <SQLExec ignoreerror="YES">
+<![CDATA[insert into IQXNetRight (IQXNetRightID,Description,SortOrder) values ('APIDESIGN','Ability to create, interrogate and modify API stored procedures',5000)]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[insert into IQXNetRightAllowed (IQXNetRightID,IQXNetUserClassID,ID) values ('APIDESIGN','OWNER','*')]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[drop procedure pears.NetAPIProc]]>
+  </SQLExec>
+  <SQLExec parameters="NO" xProcName="NetAPIProc">
+<![CDATA[create procedure pears.NetAPIProc( in pWebUserID char(20),in pOwner char(50),in pName char(50) ) 
+result( ProcBody long varchar ) 
+begin
+  select isnull(p.source,p.proc_defn) from sys.sysprocedure as p join sys.sysuser as u on p.creator = u.user_id
+    where p.proc_name = pName and u.user_name = pOwner and IQXNetHasPermission(pWebUserID,'APIDESIGN') = 1
+end]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[grant execute on pears.NetAPIProc to IQXNet]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[drop procedure pears.NetAPIProcs]]>
+  </SQLExec>
+  <SQLExec parameters="NO" xProcName="NetAPIProcs">
+<![CDATA[create procedure pears.NetAPIProcs( in pWebUserID char(20),in pOwner char(50),in pRoot char(50) ) 
+result( ProcName char(128),ProcBody long varchar ) 
+begin
+  select p.proc_name,isnull(p.source,p.proc_defn) from sys.sysprocedure as p join sys.sysuser as u on p.creator = u.user_id
+    where p.proc_name like pRoot+'%' and u.user_name = pOwner and IQXNetHasPermission(pWebUserID,'APIDESIGN') = 1
+end]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[grant execute on pears.NetAPIProcs to IQXNet]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[drop procedure pears.NetAPIProcSet]]>
+  </SQLExec>
+  <SQLExec parameters="NO" xProcName="NetAPIProcSet">
+<![CDATA[create procedure pears.NetAPIProcSet( in pWebUserID char(20),in pOwner char(50),in pName char(50),in pBody long varchar ) 
+result( pResult char(250) ) 
+begin
+  declare iSpace tinyint;
+  if IQXNetHasPermission(pWebUserID,'APIDESIGN') = 0 then
+    select '99:~Permission denied';
+    return
+  end if;
+  set pBody = ltrim(pBody);
+  set iSpace = charindex(' ',pBody);
+  if exists(select p.proc_name from sys.sysprocedure as p join sys.sysuser as u on p.creator = u.user_id
+      where p.proc_name = pName and u.user_name = pOwner) then
+    set pBody = stuff(pBody,1,iSpace,'Alter ')
+  else
+    set pBody = stuff(pBody,1,iSpace,'Create ')
+  end if;
+  execute immediate pBody;
+  execute immediate 'grant execute on '+pOwner+'.'+pName+' to IQXNet';
+  select '0:~Success'
+end]]>
+  </SQLExec>
+  <SQLExec ignoreerror="YES">
+<![CDATA[grant execute on pears.NetAPIProcSet to IQXNet]]>
+  </SQLExec>
+ </IfYesDialog>
+</Job>

@@ -1,0 +1,6 @@
+<Job>
+<WriteJSONObject>
+  <WriteJSONField name="Name" value="Sid" />
+  <WriteJSONField name="Age" value="21" type="N" />
+</WriteJSONObject>
+</Job>

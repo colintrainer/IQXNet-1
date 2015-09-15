@@ -1,0 +1,55 @@
+.container-fluid
+  .well.well-lg
+    form.form-horizontal(role='form', novalidate, ng-submit='fetch()')
+      label(for='txtRoot') Procedure Root
+      input(type='text', id='txtRoot', ng-model='pRoot')
+      button.btn.btn-sm.btn-info(type='submit') 
+        | Fetch&nbsp;
+        span.glyphicon.glyphicon-download-alt
+      label(for='cbDiffsOnly') &nbsp;&nbsp;Diffs Only
+      input(type='checkbox', id='cbDiffsOnly', ng-model='showDiffsOnly')
+  table.table.table-bordered
+    thead.bg-primary
+      tr
+        th Procedure
+        th.textright Database
+        th
+        th File
+    tbody
+      tr(ng-repeat='proc in theRecords | filter:showProc | orderBy:sortProc', ng-class='{"bg-info":proc.bEditing && !proc.bEdited,"bg-danger":proc.bEdited,"bg-success":proc.bDiff && !(proc.bEditing || proc.bEdited)}')
+        td {{ proc.procName }}
+        td.textright 
+          button.btn.btn-sm.btn-info(ng-if="proc.bEdited", ng-click="syncChanges(proc)") 
+            | Sync to DB&nbsp;
+            span.glyphicon.glyphicon-upload
+          button.btn.btn-sm.btn-danger(ng-if="proc.bEdited", ng-click="undoChanges(proc)") 
+            | Undo&nbsp;
+            span.glyphicon.glyphicon-remove-circle
+          button.btn.btn-sm.btn-success(ng-if='proc.dbLines', ng-click="editSQL(proc,'D')") 
+            | Edit&nbsp;
+            span.glyphicon.glyphicon-pencil
+          span &nbsp;{{proc.dbLines}}&nbsp;
+          span(ng-if='proc.dbLines') lines
+          button.btn.btn-sm.btn-success(ng-if='proc.dbLines && proc.bDiff && !proc.bEdited', ng-click="copyProc(proc,'DtoF')")
+            | Copy to File&nbsp;
+            span.glyphicon.glyphicon-arrow-right
+        td.textcentre
+          button.btn.btn-sm.btn-success(ng-if='proc.bDiff && proc.bBoth && !proc.bEditing', ng-click="editSQL(proc,'C')") 
+            span.glyphicon.glyphicon-arrow-left
+            | &nbsp;Show Diffs&nbsp;
+            span.glyphicon.glyphicon-arrow-right
+          span.glyphicon.glyphicon-ok(ng-if='!(proc.bDiff || proc.bEditing)')
+          button.btn.btn-sm.btn-info(ng-if="proc.bEditing", ng-click="checkChanges(proc)") 
+            | Check Edits&nbsp;
+            span.glyphicon.glyphicon-search
+        td 
+          button.btn.btn-sm.btn-success(ng-if='proc.fileLines && proc.bDiff && !proc.bEdited', ng-click="copyProc(proc,'FtoD')")
+            span.glyphicon.glyphicon-arrow-left
+            | &nbsp;Copy to Database
+          span &nbsp;{{proc.fileLines}}&nbsp;
+          span(ng-if='proc.fileLines') lines
+          button.btn.btn-sm.btn-success(ng-if='proc.fileLines', ng-click="editSQL(proc,'F')") 
+            | Edit&nbsp;
+            span.glyphicon.glyphicon-pencil
+  .col-xs-12.text-danger(ng-if='formError') {{ formError }}
+

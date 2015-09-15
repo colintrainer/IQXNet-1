@@ -1,0 +1,17 @@
+.container
+  .panel.panel-default
+    .panel-body
+      form.form-horizontal(role='form', action='#', target='emptyPageForLogin', method='post', novalidate, ng-submit='login(username,password)')
+        .form-group
+          label.control-label.col-sm-2(for='username') User Name
+          .col-sm-10
+            input.form-control(type='text', id='username', name='username', ng-model='username')
+        .form-group
+          label.control-label.col-sm-2(for='password') Password
+          .col-sm-10
+            input.form-control(type='password', id='password', name='password', ng-model='password')
+        .col-12.text-center(ng-show='loginerr')
+          p.text-danger {{loginerr}}
+        .col-12
+          input.btn.btn-success.btn-lg.btn-block(type='submit', value='Login')
+iframe(src='views/emptyPageForLogin.html', id='emptyPageForLogin', name='emptyPageForLogin', style='display:none')

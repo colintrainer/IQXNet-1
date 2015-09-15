@@ -1,0 +1,109 @@
+<NotepadPlus>
+    <Project name="IQXNet">
+        <Folder name="assets">
+            <Folder name="lib">
+                <File name="assets\lib\angular-bootstrap-calendar-tpls.min.js" />
+                <File name="assets\lib\angular-bootstrap-calendar-tpls.min.js.map" />
+                <File name="assets\lib\angular-bootstrap-calendar.min.css" />
+                <File name="assets\lib\angular-bootstrap-calendar.min.css.map" />
+                <File name="assets\lib\angular-bootstrap-calendar.min.js" />
+                <File name="assets\lib\angular-bootstrap-calendar.min.js.map" />
+            </Folder>
+            <Folder name="maps">
+                <File name="assets\maps\app.js.map" />
+            </Folder>
+            <File name="assets\app.css" />
+            <File name="assets\app.js" />
+            <File name="assets\favicon.ico" />
+        </Folder>
+        <Folder name="cliControllers">
+            <Folder name="ui.bootstrap">
+                <File name="cliControllers\ui.bootstrap\dateparser.js" />
+            </Folder>
+            <File name="cliControllers\api.svc.js" />
+            <File name="cliControllers\application.ctrl.js" />
+            <File name="cliControllers\application.svc.js" />
+            <File name="cliControllers\canddiary.ctrl.js" />
+            <File name="cliControllers\candidate.ctrl.js" />
+            <File name="cliControllers\candprovtimesheets.ctrl.js" />
+            <File name="cliControllers\dates.dir.js" />
+            <File name="cliControllers\form.svc.js" />
+            <File name="cliControllers\home.ctrl.js" />
+            <File name="cliControllers\login.ctrl.js" />
+            <File name="cliControllers\module.js" />
+            <File name="cliControllers\provtimesheet.ctrl.js" />
+            <File name="cliControllers\questionnaire.dir.js" />
+            <File name="cliControllers\questionnaire.svc.js" />
+            <File name="cliControllers\routes.js" />
+            <File name="cliControllers\apiProcs.ctrl.js" />
+        </Folder>
+        <Folder name="dump">
+            <File name="dump\app.js" />
+        </Folder>
+        <Folder name="gulp">
+            <File name="gulp\css.js" />
+            <File name="gulp\jade.js" />
+            <File name="gulp\scripts.js" />
+            <File name="gulp\server.js" />
+        </Folder>
+        <Folder name="jade">
+            <File name="jade\app.jade" />
+            <File name="jade\canddetails.jade" />
+            <File name="jade\canddiary.jade" />
+            <File name="jade\candprovtimesheets.jade" />
+            <File name="jade\emptyPageForLogin.jade" />
+            <File name="jade\error-messages.jade" />
+            <File name="jade\home.jade" />
+            <File name="jade\login.jade" />
+            <File name="jade\modalDialog.jade" />
+            <File name="jade\provtimesheet.jade" />
+            <File name="jade\question.jade" />
+            <File name="jade\standard-blocks.jade" />
+            <File name="jade\apiProcs.jade" />
+        </Folder>
+        <Folder name="sql">
+            <File name="sql\NetHasPermission.sql" />
+            <File name="sql\NetProvTimesheet.sql" />
+            <File name="sql\NetQuestionnaire.sql" />
+        </Folder>
+        <Folder name="srvControllers">
+            <File name="srvControllers\api.js" />
+            <File name="srvControllers\auth.js" />
+            <File name="srvControllers\config.js" />
+            <File name="srvControllers\index.js" />
+            <File name="srvControllers\static.js" />
+            <File name="srvControllers\apiTools.js" />
+            <File name="srvControllers\apiMaint.js" />
+            <File name="srvControllers\iqTest.js" />
+        </Folder>
+        <Folder name="stylus">
+            <File name="stylus\app.styl" />
+        </Folder>
+        <Folder name="test">
+            <File name="test\contest.js" />
+            <File name="test\someothertest.js" />
+            <File name="test\sometest.js" />
+            <File name="test\iqxtest1.js" />
+        </Folder>
+        <Folder name="views">
+            <File name="views\app.html" />
+            <File name="views\canddetails.html" />
+            <File name="views\canddiary.html" />
+            <File name="views\candprovtimesheets.html" />
+            <File name="views\emptyPageForLogin.html" />
+            <File name="views\error-messages.html" />
+            <File name="views\home.html" />
+            <File name="views\login.html" />
+            <File name="views\modalDialog.html" />
+            <File name="views\provtimesheet.html" />
+            <File name="views\question.html" />
+            <File name="views\standard-blocks.html" />
+            <File name="views\apiProcs.html" />
+        </Folder>
+        <File name="go.bat" />
+        <File name="gulpfile.js" />
+        <File name="package.json" />
+        <File name="README.md" />
+        <File name="server.js" />
+    </Project>
+</NotepadPlus>

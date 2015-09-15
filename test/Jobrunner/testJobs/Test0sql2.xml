@@ -1,0 +1,5 @@
+<Job>
+<SetVariable name="myvar" sql="select userstaffid" />
+<SetVariable name="myvar" value="Success" />
+<Write>{myvar}</Write>
+</Job>

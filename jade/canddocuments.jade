@@ -1,0 +1,32 @@
+include ./standard-blocks.jade
+
+container-fluid
+  .well.container(ng-show="userHasRight('DOCCANDUPLOAD')")
+    .btn-group.btn-group-justified(role='group', ng-show='!isEditing')
+      .btn-group(role='group')
+        button.btn.btn-success.btn-default(type='button', ng-click='setEditing(true)') Upload Document
+    .panel.panel-primary(ng-show='isEditing')
+      .panel-heading Document to Upload
+        span.glyphicon.glyphicon-remove.pull-right.clickable(ng-click='uploadCleanup()')
+      .panel-body
+        +MiniForm
+          +FormSelect('Type','Type',[],{'ng-options':'type.Descrip as type.Value for type in uploadTypes','required':true})
+          +FormField('text','Description','Description',{'required':true})
+          +FormFile('file','File',{'accept':'.doc,.pdf,image/*', 'ngf-pattern':'.doc,.pdf,image/*', 'ngf-max-size':'2MB', 'required':true})
+          +FormFileUpload
+          .text-danger(ng-if='uploadError') {{uploadError}}
+          .text-success(ng-if='uploadProgress') {{uploadProgress}}
+
+  table.table
+    thead
+      tr
+        th Type
+        th Description
+        th Last Updated
+    tbody
+      tr.drillable(ng-repeat='document in theRecords', ng-click='showDocument(document)', ng-class='{"bg-danger":document.downloadError}')
+        td {{ document.DocType }}
+        td {{ document.DocDescription }}
+        td {{ document.LastUpdate }} {{document.downloadError}}
+  .col-xs-12.text-danger(ng-if='formError') {{ formError }}
+

@@ -1,0 +1,6 @@
+<Job>
+<SQLExec>delete from blobstore where class='Z' and id='TESTZZZ'</SQLExec>
+<LoadBlobFromFile filename="{jobdir}Test0dummy.txt" blobtype="Z" blobid="TESTZZZ" zip="YES" requestedby="MOCHATEST" />
+<SetVariable name="myvar" sql="select createdby from blobstore where class='Z' and id='TESTZZZ'" />
+<Write>{myvar}</Write>
+</Job>
