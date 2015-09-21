@@ -25,8 +25,9 @@ mixin MiniForm
   form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='save()')
     block
     
-mixin FormField(sType,sID,sLabel,oAttrs)
-  .form-group
+mixin FormField(sType,sID,sLabel,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10
       input.form-control(type=sType, id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
@@ -70,4 +71,18 @@ mixin FormFileUpload
   .btn-group.btn-group-justified(role='group', ng-show='theForm.$valid')
     .btn-group(role='group')
       button.btn.btn-primary.btn-default(type='button', ng-click='uploadExecute()') Upload
-    
+      
+mixin Pager
+  pager(total-items='totalItems', items-per-page='itemsPerPage', ng-model='currentPage', ng-change='fetch()', align='false')
+  
+mixin FormError
+  .text-danger(ng-if='formError') {{ formError }}
+  
+mixin FormButtonGroup
+  .btn-group.btn-group-justified(role='group')
+    block
+      
+mixin FormButton(sCaption,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .btn-group(role='group')&attributes(xAttrs)
+    button.btn.btn-primary.btn-default(type='button')&attributes(oAttrs)= sCaption
