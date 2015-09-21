@@ -1,15 +1,18 @@
 angular.module('app').config(function($routeProvider) {
-	$routeProvider
-	.when('/',{controller:'HomeCtrl',templateUrl:'/views/home.html'})	
-	.when('/login',{controller:'LoginCtrl',templateUrl:'/views/login.html'})
-	.when('/canddetails',{controller:'CandidateCtrl',templateUrl:'/views/canddetails.html'})
-	.when('/candregister',{controller:'CandRegCtrl',templateUrl:'/views/candregister.html'})
-	.when('/candprovtimesheets',{controller:'CandProvTSCtrl',templateUrl:'/views/candprovtimesheets.html'})
-	.when('/provtimesheet',{controller:'ProvTSCtrl',templateUrl:'/views/provtimesheet.html'})
-	.when('/canddiary',{controller:'CandDiaryCtrl',templateUrl:'/views/canddiary.html'})
-	.when('/apiprocs',{controller:'APIprocsCtrl',templateUrl:'/views/apiProcs.html'})
-	.when('/canddocuments',{controller:'CandDocsCtrl',templateUrl:'/views/canddocuments.html'})
-	})
+  $routeProvider
+  .when('/',{controller:'HomeCtrl',templateUrl:'/views/home.html'}) 
+  .when('/login',{controller:'LoginCtrl',templateUrl:'/views/login.html'})
+  .when('/changepassword',{controller:'ChangePasswordCtrl',templateUrl:'/views/changepassword.html'})
+  .when('/canddetails',{controller:'CandidateCtrl',templateUrl:'/views/canddetails.html'})
+  .when('/candregister',{controller:'CandRegCtrl',templateUrl:'/views/candregister.html'})
+  .when('/candprovtimesheets',{controller:'CandProvTSCtrl',templateUrl:'/views/candprovtimesheets.html'})
+  .when('/provtimesheet',{controller:'ProvTSCtrl',templateUrl:'/views/provtimesheet.html'})
+  .when('/timesheets',{controller:'TimesheetsCtrl',templateUrl:'/views/timesheets.html'})
+  .when('/timesheet',{controller:'TimesheetCtrl',templateUrl:'/views/timesheet.html'})
+  .when('/canddiary',{controller:'CandDiaryCtrl',templateUrl:'/views/canddiary.html'})
+  .when('/apiprocs',{controller:'APIprocsCtrl',templateUrl:'/views/apiProcs.html'})
+  .when('/canddocuments',{controller:'CandDocsCtrl',templateUrl:'/views/canddocuments.html'})
+  })
   .run( function($rootScope, $location, ApplicationSvc) {
     // Register listener to watch route changes
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
