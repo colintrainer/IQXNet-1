@@ -47,13 +47,23 @@ angular.module('app')
       return err
       }
     }
+    
+  function extendedFetchAPI(scope,options) {
+    if (!(options.multiRow && options.sliceSize)) {return options.fetchAPI}
+    var qry='pSliceSize='+options.sliceSize+'&pSlice='+(scope.currentPage-1)  // Slices start at 0
+    if (options.fetchAPI.indexOf('?')>=0) {
+      return options.fetchAPI+'&'+qry
+    } else {
+      return options.fetchAPI+'?'+qry
+    }  
+    }
      
 	svc.fetch=function (scope,options) {
     var theResult, doFetch
     if (!options.fetchAPI) {return $q.reject(scope.formError='No fetchAPI in options')}
 		if (!ApplicationSvc.isLoggedIn && !options.notLoggedIn) {return $q.reject(scope.formError='Not logged in')}
     if (angular.isString(options.fetchAPI)) {
-      doFetch=$http.get('/api/'+options.fetchAPI)
+      doFetch=$http.get('/api/'+extendedFetchAPI(scope,options))
     } else {
       doFetch=svc.IQXResultSucceeded(options.fetchAPI)
     }
@@ -67,7 +77,11 @@ angular.module('app')
             theResult=res.data.IQXResult.Row
           } else {  // Make single row into an array
             theResult=[res.data.IQXResult.Row]
-          }          
+          }  
+          if (options.sliceSize && theResult.length<options.sliceSize) {
+            // Make this the last page
+            scope.totalItems=(scope.currentPage-(theResult.length===0 && scope.currentPage>1?1:0))*options.sliceSize  
+            }
         } else {  // Single row expected
           if (res.data.IQXResult.Row == undefined) {
             theResult={}

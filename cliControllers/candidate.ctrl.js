@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('CandidateCtrl', function ($scope, FormSvc, QuestionnaireSvc) {
+.controller('CandidateCtrl', function ($scope, $location, FormSvc, QuestionnaireSvc) {
     FormSvc.setOptions($scope,{
       fetchAPI:'callresult/netcandidateprofile',
       saveAPI:'call/netcandidateprofileset',
@@ -12,6 +12,10 @@ angular.module('app')
         postVar:'qanswers'
         }
       })
+      
+    $scope.changePassword=function() {
+      $location.path('/changepassword')
+      }
     
     $scope.fetch()
     

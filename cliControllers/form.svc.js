@@ -1,5 +1,5 @@
 angular.module('app')
-.service('FormSvc', function (ApiSvc, $q, $timeout, ApplicationSvc, QuestionnaireSvc) {
+.service('FormSvc', function (ApiSvc, $q, $timeout, $window, $location, ApplicationSvc, QuestionnaireSvc) {
 	var svc=this
 
   svc.setOptions=function (scope,options) {
@@ -12,12 +12,18 @@ angular.module('app')
       booleanFields:[],
       primaryKey:'',
       multiRow:false,
+      sliceSize:0, // No paging
       notLoggedIn:false,
       autoEdit:false,
       saveCleanFields:false,
       questionnaire:null
       },options)
 
+    // Paging setup
+    scope.currentPage=1
+    scope.totalItems=1000000 // May be adjusted downwards when we know how many there are
+    scope.itemsPerPage=scope.FormSvcOptions.sliceSize
+    
     // Date picker setup
     scope.dateFormat='dd/MM/yyyy'  
     scope.dateOptions={}
@@ -48,12 +54,24 @@ angular.module('app')
       return ApiSvc.exec(scope,api,postObject,scope.FormSvcOptions.notLoggedIn)
 	    }
       
+    scope.save=function () {
+      // Submit method on MiniForm - must be over-ridden in controller if needed
+	    }
+      
     scope.setEditing=function (bOn) {
       svc.setEditing(scope,bOn)
       }
 
     scope.setSubmitted=function (bOn) {
       svc.setSubmitted(scope,bOn)
+      }
+      
+    scope.back=function () {
+      $window.history.back()
+      }
+      
+    scope.home=function () {
+      $location.url('/')
       }
       
     if (scope.FormSvcOptions.questionnaire) {
