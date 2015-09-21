@@ -4,7 +4,7 @@ angular.module('app')
     $scope.loginerr=''
     if (!username) {return ($scope.loginerr='Missing user name')}
     if (!password) {return ($scope.loginerr='Missing password')}
-    $http.post('/api/login', {username:username, password:password})  
+    $http.post('/api/auth/login', {username:username, password:password})  
       .then(function (res) {
         ApplicationSvc.setLoggedIn(res.data)
         var p=ApplicationSvc.postLoginRoute  // Navigate to wherever was last requested in the un-loggedin state (default=/)

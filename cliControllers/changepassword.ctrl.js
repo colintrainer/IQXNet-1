@@ -8,7 +8,7 @@ angular.module('app')
   $scope.save=function () {
     $scope.setSubmitted(true) // Ensure all validation errors appear
     if ($scope.theForm.$invalid) {return}
-    $scope.exec('changepassword',$scope.theRecord)
+    $scope.exec('auth/changepassword',$scope.theRecord)
     .then(function(res) {
       ApplicationSvc.changePassword(res)
       var p=ApplicationSvc.postLoginRoute // If this is a forced password change navigate to wherever was last requested in the un-loggedin state (default=/)

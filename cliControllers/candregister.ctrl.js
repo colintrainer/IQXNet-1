@@ -5,15 +5,15 @@ angular.module('app')
                   Password:'abcdefA.1',
                   RepeatPassword:'abcdefA.1',
                   Forenames:'Herbert Horace',
-                  Surname:'Ffucke-Witte',
+                  Surname:'Fflowers-Fothergill',
                   DOB:'xxx 15/05/1955',
                   Addr1:'The Hole',
                   Postcode:'TD99 9JT'
-                  }
+                  } // Assign to fetchAPI for easy testing - passes all the validations
   
     FormSvc.setOptions($scope,{
-      fetchAPI:testData,   //{}, // No data fetch - initialise with empty record
-      saveAPI:'candregister', 
+      fetchAPI:{}, // No data fetch - initialise with empty record
+      saveAPI:'register/candidate', 
       notLoggedIn:true, // New candidate so obviously not yet logged in
       autoEdit:true, // Switch form straight to edit mode
       saveCleanFields:true, // All fields sent, whether or not dirty
