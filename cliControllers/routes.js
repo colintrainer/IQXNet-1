@@ -23,10 +23,15 @@ angular.module('app').config(function($routeProvider) {
       if ( !ApplicationSvc.isLoggedIn ) {
         // Not logged in so ensure that we go to /login
         if ( next.originalPath != '/login' ) {
-		      ApplicationSvc.postLoginRoute=next.originalPath  // Remember where they requested to go so we can still go there after they log in 
+          ApplicationSvc.postLoginRoute=next.originalPath  // Remember where they requested to go so we can still go there after they log in 
           $location.path( "/login" );  // Redirect
           }
-        }         
+      } else if (ApplicationSvc.forceChangePassword()) {
+        if ( next.originalPath != '/changepassword' ) {
+          ApplicationSvc.postLoginRoute=next.originalPath  // Remember where they requested to go so we can still go there after they change password 
+          $location.path( "/changepassword" );  // Redirect
+          }
+      }        
       })
     $rootScope.$on('$locationChangeStart', function(event) {
       if ( ApplicationSvc.isEditing && !ApplicationSvc.autoEdit ) {
@@ -34,4 +39,4 @@ angular.module('app').config(function($routeProvider) {
         alert('Please first save or cancel your edits')
         }
       })
-	})
+  })
