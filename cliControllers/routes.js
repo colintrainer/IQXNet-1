@@ -3,6 +3,7 @@ angular.module('app').config(function($routeProvider) {
   .when('/',{controller:'HomeCtrl',templateUrl:'/views/home.html'}) 
   .when('/login',{controller:'LoginCtrl',templateUrl:'/views/login.html'})
   .when('/changepassword',{controller:'ChangePasswordCtrl',templateUrl:'/views/changepassword.html'})
+  .when('/resetpassword',{controller:'ResetPasswordCtrl',templateUrl:'/views/resetpassword.html'})
   .when('/canddetails',{controller:'CandidateCtrl',templateUrl:'/views/canddetails.html'})
   .when('/candregister',{controller:'CandRegCtrl',templateUrl:'/views/candregister.html'})
   .when('/candprovtimesheets',{controller:'CandProvTSCtrl',templateUrl:'/views/candprovtimesheets.html'})
@@ -21,8 +22,8 @@ angular.module('app').config(function($routeProvider) {
         return
       }
       if ( !ApplicationSvc.isLoggedIn ) {
-        // Not logged in so ensure that we go to /login
-        if ( next.originalPath != '/login' ) {
+        // Not logged in so ensure that we go to /login or /resetpassword
+        if ( !(next.originalPath == '/login' || next.originalPath == '/resetpassword') ) {
           ApplicationSvc.postLoginRoute=next.originalPath  // Remember where they requested to go so we can still go there after they log in 
           $location.path( "/login" );  // Redirect
           }
