@@ -1,6 +1,7 @@
 create procedure "pears"."NetCandidateProfileSet"( in "pWebUserID" char(20),in "ppersonid" char(20),in "pForenames" char(50) default 'NOT-SET',in "pSurname" char(50) default 'NOT-SET',in "pGender" char(20) default 'NOT-SET',in "pdob" char(20) default 'NOT-SET',in "phomephone" char(250) default 'NOT-SET',in "pDayPhone" char(250) default 'NOT-SET',in "pMobile" char(250) default 'NOT-SET',in "pemail" char(250) default 'NOT-SET',in "pAddr1" char(50) default 'NOT-SET',in "pAddr2" char(50) default 'NOT-SET',in "pAddr3" char(50) default 'NOT-SET',in "pTown" char(50) default 'NOT-SET',in "pCounty" char(50) default 'NOT-SET',in "pCountry" char(50) default 'NOT-SET',in "pPostcode" char(50) default 'NOT-SET',in "pOLDForenames" char(50) default 'NOT-SET',in "pOLDSurname" char(50) default 'NOT-SET',in "pOLDGender" char(20) default 'NOT-SET',in "pOLDdob" char(20) default 'NOT-SET',in "pOLDhomephone" char(250) default 'NOT-SET',in "pOLDDayPhone" char(250) default 'NOT-SET',in "pOLDMobile" char(250) default 'NOT-SET',in "pOLDemail" char(250) default 'NOT-SET',in "pOLDAddr1" char(50) default 'NOT-SET',in "pOLDAddr2" char(50) default 'NOT-SET',in "pOLDAddr3" char(50) default 'NOT-SET',in "pOLDTown" char(50) default 'NOT-SET',in "pOLDCounty" char(50) default 'NOT-SET',in "pOLDCountry" char(50) default 'NOT-SET',in "pOLDPostcode" char(50) default 'NOT-SET',
   in "qanswers" long varchar default null ) 
 result( "pResult" char(250) ) 
+// IQXWeb
 begin
   declare "dateofbirth" date;
   declare "bnamechanged" smallint;
