@@ -1,3 +1,5 @@
+include ./standard-blocks.jade
+
 .container-fluid
   table.table.table-striped
     thead
@@ -8,11 +10,13 @@
         th Position
         th End Date
     tbody
-      tr.drillable(ng-repeat='timesheet in theRecords', ng-click='expandTimesheet(timesheet.tempprovtimesheetid)')
+      tr.drillable(ng-repeat='timesheet in theRecords', ng-click='expandTimesheet(timesheet.temptimesheetid)')
         td {{ timesheet.serialnumber }}
         td {{ timesheet.tempname }}
         td {{ timesheet.companyname }}
         td {{ timesheet.position }}
         td {{ timesheet.weekenddate | date:'dd/MM/yyyy' }}
-  .col-xs-12.text-danger(ng-if='formError') {{ formError }}
 
+  .col-xs-12.text-danger(ng-if='formError') {{ formError }}
+  +Pager
+  

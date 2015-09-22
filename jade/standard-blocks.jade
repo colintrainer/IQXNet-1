@@ -25,15 +25,17 @@ mixin MiniForm
   form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='save()')
     block
     
-mixin FormField(sType,sID,sLabel,oAttrs)
-  .form-group
+mixin FormField(sType,sID,sLabel,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10
       input.form-control(type=sType, id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
       .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
     
-mixin FormSelect(sID,sLabel,aChoices,oAttrs)
-  .form-group
+mixin FormSelect(sID,sLabel,aChoices,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10
       select.form-control(id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
@@ -41,8 +43,9 @@ mixin FormSelect(sID,sLabel,aChoices,oAttrs)
           option(value=item.Value)= item.Descrip
       .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
 
-mixin FormDatePopup(sID,sLabel,oAttrs)
-  .form-group
+mixin FormDatePopup(sID,sLabel,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10
       p.input-group
@@ -52,8 +55,9 @@ mixin FormDatePopup(sID,sLabel,oAttrs)
             i.glyphicon.glyphicon-calendar
       .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
       
-mixin FormCheckbox(sID,sLabel,oAttrs)
-  .form-group
+mixin FormCheckbox(sID,sLabel,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10.checkbox
       input.form-control(type='checkbox', id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
@@ -70,4 +74,19 @@ mixin FormFileUpload
   .btn-group.btn-group-justified(role='group', ng-show='theForm.$valid')
     .btn-group(role='group')
       button.btn.btn-primary.btn-default(type='button', ng-click='uploadExecute()') Upload
-    
+      
+mixin Pager
+  pager(total-items='totalItems', items-per-page='itemsPerPage', ng-model='currentPage', ng-change='fetch()', align='false')
+  
+mixin FormError
+  .text-danger(ng-if='formError') {{ formError }}
+  
+mixin FormButtonGroup(xAttrs)
+  - xAttrs = xAttrs || {}
+  .btn-group.btn-group-justified(role='group')&attributes(xAttrs)
+    block
+      
+mixin FormButton(sCaption,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .btn-group(role='group')&attributes(xAttrs)
+    button.btn.btn-primary.btn-default(type='button')&attributes(oAttrs)= sCaption

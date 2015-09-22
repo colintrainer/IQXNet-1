@@ -1,5 +1,6 @@
 create procedure "pears"."NetAPIProcSet"( in "pWebUserID" char(20),in "pOwner" char(50),in "pName" char(50),in "pBody" long varchar ) 
 result( "pResult" char(250) ) 
+// IQXWeb
 begin
   declare "iSpace" tinyint;
   if "IQXNetHasPermission"("pWebUserID",'APIDESIGN') = 0 then

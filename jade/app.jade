@@ -20,8 +20,8 @@ html(ng-app='app')
           ul.nav.navbar-nav(ng-if="userClass()=='CANDIDATE'")
             li: a(href='/#/') Home
             li: a(href='/#/canddetails') Details
-            li: a(href='/#/candprovtimesheets') Timesheets
-            li: a(href='/#/canddiary') Diary
+            li: a(href='/#/timesheets') Timesheets
+            li: a(ng-if='false',href='/#/canddiary') Diary
             li(ng-if="userHasRight('DOCCANDDOWNLOAD')"): a(href='/#/canddocuments') Documents
           ul.nav.navbar-nav(ng-if="userClass()=='OWNER'")
             li: a(href='/#/') Home

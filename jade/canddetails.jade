@@ -2,6 +2,9 @@ include ./standard-blocks.jade
 
 +Container
   +Form
+    +FormButtonGroup
+      +FormButton('Change Password',{'ng-click':'changePassword()','ng-show':'!isEditing'})
+    .mysmallspacer
     +FormField('text','Forenames','Forenames',{'required':true})
     +FormField('text','Surname','Surname',{'required':true})
     +FormSelect('Gender','Gender',[{'Value':'M','Descrip':'Male'},{'Value':'F','Descrip':'Female'}],{})

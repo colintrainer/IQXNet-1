@@ -1,5 +1,6 @@
 create PROCEDURE pears."NetTestSetup"( in pWebUserID char(20))
 result(pResult char(250))
+// IQXWeb - for automated testing
 BEGIN
 insert into person (personid,name,keyname,forenames,surname) on existing update values ('TEST','test','TEST','test','test');
 insert into company (companyid,name,keyname) on existing update values ('TEST','test','TEST');

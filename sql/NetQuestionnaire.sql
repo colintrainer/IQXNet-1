@@ -1,6 +1,9 @@
 create PROCEDURE pears."NetQuestionnaire"(in pWebUserID char(20),in ptaglocation char(3),in pid char(20) default null,in pgroup smallint default null)
 result(tagsortorder smallint,tagid char(3),sortX smallint,choicesortorder smallint,tagchoiceid char(4),rectype smallint,description char(100),tagtype char(1),minstep double,units char(10),required smallint,displaygroup smallint,value double,textvalue long varchar,taglocation char(3),tagchoiceparentid char(4))
+// IQXWeb
 begin
+  -- Summer 15 Added support for submenu questions - tagchoiceparentid
+  -- Summer 15 Added long text for sub choices
   -- 20120907 modified to insert long text for question title. retrieve from LongDescription
   -- sortX=0 for tags, 1 for subchoices, 2 for choices and values
   -- rectype=0 for tags, 1 for choices, 2 for subchoices, 3 for values

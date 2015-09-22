@@ -3,6 +3,7 @@ create procedure "pears"."NetCandidateRegister"( in "pWebUserID" char(20),in "pN
   in "pAddr1" char(50) default null,in "pAddr2" char(50) default null,in "pAddr3" char(50) default null,in "pTown" char(50) default null,in "pCounty" char(50) default null,in "pCountry" char(50) default null,in "pPostcode" char(50) default null,
   in "qanswers" long varchar default null ) 
 result( "pResult" char(250) ) 
+// IQXWeb
 begin
   declare "dateofbirth" date;
   declare "ppersonid" char(20);

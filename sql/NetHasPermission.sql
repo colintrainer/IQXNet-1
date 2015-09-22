@@ -1,5 +1,6 @@
 create FUNCTION pears."NetHasPermission"( in pWebUserID char(20), in pPersonID char(20), in pCompanyID char(20) )
 RETURNS INTEGER
+// IQXWeb
 BEGIN
 	DECLARE "rv" INTEGER;
     declare userclass char(20);

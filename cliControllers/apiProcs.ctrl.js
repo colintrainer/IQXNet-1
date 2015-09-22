@@ -5,6 +5,7 @@ angular.module('app')
   $scope.pOwner='pears'
   $scope.pRoot='Net'
   $scope.showDiffsOnly=false
+  $scope.showFilesOnly=false
   $scope.theRecords=[]  // Because fetch will check for any dirty records and prompt
   
   $scope.fetch=function () {
@@ -23,11 +24,14 @@ angular.module('app')
     }
       
   $scope.showProc=function(proc) {
+    var bShow = true
     if ($scope.showDiffsOnly) {
-      return (proc.bDiff || proc.bEditing || proc.bEdited)
-    } else {
-      return true
+      bShow = bShow && (proc.bDiff || proc.bEditing || proc.bEdited)
+    } 
+    if ($scope.showFilesOnly) {
+      bShow = bShow && proc.fileLines
     }
+    return bShow
     }
     
   $scope.sortProc=function(proc) {
