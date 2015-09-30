@@ -1,9 +1,11 @@
-mixin Container
-  .container
+mixin Container(xAttrs)
+  - xAttrs = xAttrs || {}
+  .container&attributes(xAttrs)
     block
     
-mixin Form
-  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='update()')
+mixin Form(xAttrs)
+  - xAttrs = xAttrs || {}
+  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='update()')&attributes(xAttrs)
     block
     .mybottomspacer
     .myerrorspacer(ng-if='formError')
@@ -21,8 +23,9 @@ mixin Form
           .btn-group(role='group', ng-show='!autoEdit')
             button.btn.btn-success.btn-default(type='button', ng-click='reset()') Cancel
     
-mixin MiniForm
-  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='save()')
+mixin MiniForm(xAttrs)
+  - xAttrs = xAttrs || {}
+  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='save()')&attributes(xAttrs)
     block
     
 mixin FormField(sType,sID,sLabel,oAttrs,xAttrs)
@@ -61,6 +64,14 @@ mixin FormCheckbox(sID,sLabel,oAttrs,xAttrs)
     label.control-label.col-sm-2(for=sID)= sLabel
     .col-sm-10.checkbox
       input.form-control(type='checkbox', id=sID, name=sID, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
+      .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
+    
+mixin FormTextArea(sID,sLabel,nRows,oAttrs,xAttrs)
+  - xAttrs = xAttrs || {}
+  .form-group&attributes(xAttrs)
+    label.control-label.col-sm-2(for=sID)= sLabel
+    .col-sm-10
+      textarea.form-control(id=sID, name=sID, rows=nRows, ng-model='theRecord.'+sID, ng-disabled='!isEditing')&attributes(oAttrs)
       .text-danger(ng-messages='theForm.'+sID+'.$error', ng-messages-include='/views/error-messages.html', ng-if='isSubmitted || theForm.'+sID+'.$touched')
     
 mixin FormFile(sID,sLabel,oAttrs)

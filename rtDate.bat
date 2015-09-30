@@ -20,12 +20,17 @@
 :start
 set /p testID="Enter Name of Test: "
 
+REM Get the datetime in a format that can go in a filename.
+set _my_datetime=%date%_%time%
+set _my_datetime=%_my_datetime: =_%
+set _my_datetime=%_my_datetime::=%
+set _my_datetime=%_my_datetime:/=_%
+set _my_datetime=%_my_datetime:.=_%
+
 :determineOutputFolder
 set /p oFolder="Enter Output Folder Name: "
 REM Get Full Path
 REM echo About to check if %~dp0output\%oFolder% exists
-pause
-set oDate = DATE
 REM IF EXIST %~dp0output\%oFolder%\ goto folderExistsContinue else goto createNewFolder 
 
 :createNewFolder
@@ -56,11 +61,9 @@ REM echo Folder %~dp0%oFolder%\ has NOT been created
 REM pause
 
 :runTestandWriteFile
-echo Starting the test and writing to text file once you hit any key
-echo directory about to be made is %~dp0output\%oFolder%\
+REM echo Starting the test and writing to text file once you hit any key
 REM md\%~dp0output\%oFolder%\
-echo path is %~dp0output\%oFolder%\%testID%.rtf
-pause
-mocha test\col > %testID%_DATE.rtf 
+Echo Report file %testID%_%_my_datetime%.rtf has been created under test\col.
+mocha test\col > %testID%_%_my_datetime%.rtf 
 
 :end

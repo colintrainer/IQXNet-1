@@ -10,43 +10,43 @@ include ./standard-blocks.jade
         th Shift Date
         th From
         th To
-        th Break
-        th Hours
+        th.textright Break
+        th.textright Hours
     tbody
       tr(ng-repeat='shift in timesheetShifts')
         td {{ shift.shiftdate | date:'EEE dd/MM/yy' }}
         td {{ shift.timefrom }}
         td {{ shift.timeto }}
-        td {{ shift.breakminutes }}
-        td {{ shift.shiftduration | number:2 }}
+        td.textright {{ shift.breakminutes }}
+        td.textright {{ shift.shiftduration | number:2 }}
           
   table.table.table-striped(ng-show='timeTimesheet')
     thead
       tr
         th Date
         th From
-        th Hours
+        th.textright Hours
     tbody
       tr(ng-repeat='shift in timesheetTimes')
         td {{ shift.shiftdate | date:'EEE dd/MM/yy' }}
         td {{ shift.timefrom }}
-        td {{ shift.hours | number:2 }}
+        td.textright {{ shift.hours | number:2 }}
         
   table.table.table-striped
     thead
       tr
         th Pay Type
         th Unit
-        th Units
-        th Rate
-        th Total
+        th.textright Units
+        th.textright Rate
+        th.textright Total
     tbody
       tr(ng-repeat='rate in timesheetRates')
         td {{ rate.BandDescription }}
         td {{ rate.UnitDescription }}
-        td {{ rate.Units | number:2 }}
-        td {{ rate.Rate | number:2 }}
-        td {{ rate.Total | number:2 }}
+        td.textright {{ rate.Units | number:2 }}
+        td.textright {{ rate.Rate | number:2 }}
+        td.textright {{ rate.Total | number:2 }}
         
   +FormError
   +FormButtonGroup

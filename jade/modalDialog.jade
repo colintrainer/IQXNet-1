@@ -3,4 +3,4 @@
 .modal-body {{ xModal.text }}
 .modal-footer
   button.btn.btn-primary(ng-click="$close(true)") {{ xModal.yesText }}
-  button.btn.btn-warning(ng-if="xModal.noText", ng-click="$dismiss()") {{ xModal.noText }}
+  button.btn.btn-warning(ng-if="xModal.noText", ng-click="cancel()") {{ xModal.noText }}

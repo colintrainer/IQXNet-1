@@ -12,7 +12,7 @@ include ./standard-blocks.jade
         +MiniForm
           +FormSelect('Type','Type',[],{'ng-options':'type.Descrip as type.Value for type in uploadTypes','required':true})
           +FormField('text','Description','Description',{'required':true})
-          +FormFile('file','File',{'accept':'.doc,.pdf,image/*', 'ngf-pattern':'.doc,.pdf,image/*', 'ngf-max-size':'2MB', 'required':true})
+          +FormFile('file','File',{'accept':'.doc,.docx,.pdf,image/*', 'ngf-pattern':'.doc,.docx,.pdf,image/*', 'ngf-max-size':'2MB', 'required':true})
           +FormFileUpload
           .text-danger(ng-if='uploadError') {{uploadError}}
           .text-success(ng-if='uploadProgress') {{uploadProgress}}

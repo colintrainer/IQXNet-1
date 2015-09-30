@@ -26,6 +26,7 @@ html(ng-app='app')
             li: a(ng-if='false',href='/#/canddiary') Diary
             li: a(href='/#/jobsearch') Job Search            
             li(ng-if="userHasRight('DOCCANDDOWNLOAD')"): a(href='/#/canddocuments') Documents
+            li(ng-if="userHasRight('TESTONLY')"): a(href='/#/test') Test
           ul.nav.navbar-nav(ng-if="userClass()=='OWNER'")
             li: a(href='/#/') Home
             li(ng-if="userHasRight('APIDESIGN') && isSwitchedOn('APIDESIGN')"): a(href='/#/apiprocs') API
