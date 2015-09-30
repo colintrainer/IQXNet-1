@@ -6,7 +6,9 @@ html(ng-app='app')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel='stylesheet', href='/lib/angular-bootstrap-calendar.min.css')
     link(rel='stylesheet', href='/app.css')
-    title IQX Online
+    link(rel='stylesheet', href='/theme.min.css')
+    /link(rel='stylesheet', href='/bootstrap.min.css')
+    title IQX Online - Metro Style
   body(ng-controller='ApplicationCtrl')
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container.navbar-container
@@ -22,10 +24,12 @@ html(ng-app='app')
             li: a(href='/#/canddetails') Details
             li: a(href='/#/timesheets') Timesheets
             li: a(ng-if='false',href='/#/canddiary') Diary
+            li: a(href='/#/jobsearch') Job Search            
             li(ng-if="userHasRight('DOCCANDDOWNLOAD')"): a(href='/#/canddocuments') Documents
           ul.nav.navbar-nav(ng-if="userClass()=='OWNER'")
             li: a(href='/#/') Home
             li(ng-if="userHasRight('APIDESIGN') && isSwitchedOn('APIDESIGN')"): a(href='/#/apiprocs') API
+            li(ng-if="userHasRight('APIDESIGN') && isSwitchedOn('APIDESIGN')"): a(href='/#/jobsearch') Job Search            
           p.navbar-text.navbar-right(ng-if='isLoggedIn()')
             | Logged in as {{ userName() }} - <a href='/#/login' ng-click='logout()'>Log out</a>
     .mynavspacer
