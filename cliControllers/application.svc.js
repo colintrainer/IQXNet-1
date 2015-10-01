@@ -13,6 +13,18 @@ angular.module('app')
     $http.defaults.headers.common['X-Auth']=svc.currentUser.token
     }
     
+  svc.params={
+    browserTitle:'IQXWeb',
+    headerName:'IQXWeb',
+    footerText:'Copyright IQX Limited 2015',
+    logoFile:'sitelogo.png',
+    logoAlt:'IQXWeb'
+    }
+  $http.get('/params.json')
+    .then(function(res) {
+      svc.params=angular.extend(svc.params,res.data)
+    })
+    
   function makeArray(s) {
     return (s?s.split(','):[])
     }
