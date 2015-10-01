@@ -1,0 +1,27 @@
+include ./standard-blocks.jade
+link(rel='stylesheet', href='/print.css')
+
+.container(ng-show='showForm')
+  h1.page-header Web Reference for {{ theRecord.personName }}
+    a.btn.btn-primary.pull-right(onclick="window.print();return false;", href="javascript:window.print()") Print
+  p Thank you <strong>{{ theRecord.RefereeAddressName }}</strong> for taking the time to fill out this reference for <strong>{{ theRecord.personName }}</strong> for the position <strong>{{ theRecord.Position }}</strong>
+
+  br
+
+  +Form
+    +FormField('text','Position','Position',{'ng-disabled':true, 'readonly':true})
+    +FormField('text','PositionNotes','Notes',{'ng-disabled':true, 'readonly':true})
+    iqx-questionnaire(questions='tags')
+    +FormCheckbox('ReferenceConfirmationRequired','Would you like an email copy of this reference?',{})
+
+.container(ng-if='formError && !showForm && !isSubmitted')
+  .alert.alert-danger&attributes({'role':'alert'})
+    span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+    span.sr-only
+      |Error 
+    |&nbsp;{{ formError }}
+
+.completed(ng-if='isCompleted')
+  .container
+    h3 Thank you for your time!
+    p Should we need more information we will be back in touch.
