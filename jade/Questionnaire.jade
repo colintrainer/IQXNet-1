@@ -1,0 +1,10 @@
+include ./standard-blocks.jade
+//- comments
++Container
+  +Form
+    +FormButtonGroup
+    .mysmallspacer
+    +FormField('text','Q1','Q1',{'required':true})
+    <!--+FormField('text','Q2','Q2',{'required':true})	-->
+
+    iqx-questionnaire(questions='tags')    

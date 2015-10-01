@@ -13,6 +13,7 @@ angular.module('app').config(function($routeProvider) {
   .when('/canddiary',{controller:'CandDiaryCtrl',templateUrl:'/views/canddiary.html'})
   .when('/apiprocs',{controller:'APIprocsCtrl',templateUrl:'/views/apiProcs.html'})
   .when('/canddocuments',{controller:'CandDocsCtrl',templateUrl:'/views/canddocuments.html'})
+  .when('/jobsearch',{controller:'JobSearchCtrl',templateUrl:'/views/jobsearch.html'})
   .when('/test',{controller:'TestCtrl',templateUrl:'/views/test.html'})
   })
   .run( function($rootScope, $location, ApplicationSvc) {
