@@ -55,11 +55,11 @@ function procFile(f) {
   }
 
 router.get('/getDbProcs',function (req,res,next) {
-	needle.get(config.iqxHubURL+'IQXcallresult/netapiprocs'+apiTools.extractQueryString(req.originalUrl), apiTools.buildOptions(req.headers), function(error, response) {
-		if (error) {
-		    console.log(error.message)
+  needle.get(config.iqxHubURL+'IQXcallresult/netapiprocs'+apiTools.extractQueryString(req.originalUrl), apiTools.buildOptions(req.headers), function(error, response) {
+    if (error) {
+        console.log(error.message)
         res.sendStatus(503)   // Service unavailable
-		} else if (response.statusCode == 200) {  // Success
+    } else if (response.statusCode == 200) {  // Success
        parser.parseString(response.body, function (err, result) {
         if (result.IQXResult.attrs.success=='0') {
           res.send(result)
@@ -89,19 +89,19 @@ router.get('/getDbProcs',function (req,res,next) {
           r.body=undefined  // We don't want to send the proc code to the browser
           })
         res.send({IQXResult:{attrs:{success:"1"},Row:ar}})
-			})
-		} else {
-			res.sendStatus(response.statusCode)
-		}
+      })
+    } else {
+      res.sendStatus(response.statusCode)
+    }
     })
 })
 
 router.get('/getDbProc',function (req,res,next) {
-	needle.get(config.iqxHubURL+'IQXcallresult/netapiproc'+apiTools.extractQueryString(req.originalUrl), apiTools.buildOptions(req.headers), function(error, response) {
-		if (error) {
-		    console.log(error.message)
+  needle.get(config.iqxHubURL+'IQXcallresult/netapiproc'+apiTools.extractQueryString(req.originalUrl), apiTools.buildOptions(req.headers), function(error, response) {
+    if (error) {
+        console.log(error.message)
         res.sendStatus(503)   // Service unavailable
-		} else if (response.statusCode == 200) {  // Success
+    } else if (response.statusCode == 200) {  // Success
        parser.parseString(response.body, function (err, result) {
         if (result.IQXResult.attrs.success=='0') {
           res.send(result)
@@ -117,10 +117,10 @@ router.get('/getDbProc',function (req,res,next) {
           process.execSync('del .\\dbsql\\'+req.query.pName+'.sql')
         }
         res.send({IQXResult:{attrs:{success:"1"}}})
-			})
-		} else {
-			res.sendStatus(response.statusCode)
-		}
+      })
+    } else {
+      res.sendStatus(response.statusCode)
+    }
     })
 })
 
@@ -148,7 +148,7 @@ router.post('/copyDbProc',function (req,res,next) {
   } 
   process.exec(cmd,function(error) {
     if (error) {
-		  console.log(error.message)
+      console.log(error.message)
       res.sendStatus(503)  // Service unavailable
     } else {
       res.send({IQXResult:{attrs:{success:"1"}}})  
@@ -182,12 +182,12 @@ router.get('/checkDbProc',function (req,res,next) {
 
 router.get('/uploadDbProc',function (req,res,next) {
   var fn='./dbsql/'+req.query.pName+'.sql'
-  var s=fs.readFileSync(fn,{encoding:'utf8'});
-	needle.post(config.iqxHubURL+'IQXCall/NetAPIProcSet', {pOwner:req.query.pOwner,pName:req.query.pName,pBody:s}, apiTools.buildOptions(req.headers), function(error, response) {
-		if (error) {
-		    console.log(error.message)
+  var s=fs.readFileSync(fn,{encoding:'utf8'})
+  needle.post(config.iqxHubURL+'IQXCall/NetAPIProcSet', {pOwner:req.query.pOwner,pName:req.query.pName,pBody:s}, apiTools.buildOptions(req.headers), function(error, response) {
+    if (error) {
+        console.log(error.message)
         res.sendStatus(503)  // Service unavailable
-		} else if (response.statusCode == 200) {  // Success
+    } else if (response.statusCode == 200) {  // Success
        parser.parseString(response.body, function (err, result) {
         if (result.IQXResult.attrs.success=='0') {
           res.send(result)
@@ -195,11 +195,44 @@ router.get('/uploadDbProc',function (req,res,next) {
         }
         res.send({IQXResult:{attrs:{success:"1"}}})  
        })
-		} else {
-			res.sendStatus(response.statusCode)
-		}
+    } else {
+      res.sendStatus(response.statusCode)
+    }
   })
 })
+
+router.get('/makeJob', function (req,res,next) {
+  try {
+  var newline="\r\n",cnt=0,fileContents,procName
+  var files=fs.readdirSync('./sql/')
+  var fd=fs.openSync('./sql/iqxWebJobs.xml','w')
+  fs.writeSync(fd,'<Job title="Net Database Procedure Import">'+newline)
+  fs.writeSync(fd,'<IfYesDialog text="This job will update the Net database procedures. Ok to proceed?">'+newline)
+  _.forEach(files,function(fileName) {
+    if (!fileName.match(/[.]sql$/i)) {return}
+    cnt++
+    procName=fileName.replace(/[.]sql$/i, '')
+    fs.writeSync(fd,'<SQLExec ignoreerror="YES">'+newline)
+    fs.writeSync(fd,'<![CDATA[drop procedure pears.'+procName+']]>'+newline)
+    fs.writeSync(fd,'</SQLExec>'+newline)
+    fs.writeSync(fd,'<SQLExec parameters="NO">'+newline)
+    fileContents=fs.readFileSync('./sql/'+fileName,{encoding:'utf8'})
+    fileContents=_.trim(fileContents)
+    fileContents=fileContents.replace(/^alter/i, 'create')
+    fs.writeSync(fd,'<![CDATA['+fileContents+']]>'+newline)
+    fs.writeSync(fd,'</SQLExec>'+newline)
+    fs.writeSync(fd,'<SQLExec ignoreerror="YES">'+newline)
+    fs.writeSync(fd,'<![CDATA[grant execute on pears.'+procName+' to IQXNet]]>'+newline)
+    fs.writeSync(fd,'</SQLExec>'+newline)
+    })
+  fs.writeSync(fd,'</IfYesDialog>'+newline)
+  fs.writeSync(fd,'</Job>'+newline)
+  fs.closeSync(fd)
+  res.send({IQXResult:{attrs:{success:"1"},Row:{procCount:cnt}}}) 
+  } catch(e) {
+    res.send(apiTools.IQXFailure(e.message))
+  }    
+  })
 
 
 module.exports=router

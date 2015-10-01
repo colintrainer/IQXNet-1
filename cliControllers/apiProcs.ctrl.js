@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('APIprocsCtrl', function ($scope, FormSvc, ApiSvc, ApplicationSvc, $q) {
+.controller('APIprocsCtrl', function ($scope, FormSvc, ApiSvc, ApplicationSvc, $q, $timeout) {
   FormSvc.setOptions($scope)
   
   $scope.pOwner='pears'
@@ -101,6 +101,19 @@ angular.module('app')
       proc.bEditing=false
       proc.bEdited=false
       return $scope.checkChanges(proc,'U')
+      })
+    }
+    
+  $scope.makeJob=function() {
+    $scope.formError=''
+    $scope.makeJobLabel='Creating job...'
+    return ApiSvc.fetch($scope,{fetchAPI:'maint/makeJob'})
+    .then(function(){
+      $scope.makeJobLabel='Created job with '+$scope.theRecord.procCount+' procedures'
+      return $timeout(function() {}, 2000)  // Display the complete message for 2 seconds 
+      })
+    .finally(function(){
+      $scope.makeJobLabel=''
       })
     }
   

@@ -5,6 +5,8 @@ dump
 views
 node_modules
 
+iqxWebJobs.xml
+
 # Rejections
 *.rej
 
