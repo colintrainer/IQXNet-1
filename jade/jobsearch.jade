@@ -1,14 +1,12 @@
 include ./standard-blocks.jade
-
 //-h2 Job Search
-
 +Container
   +Form
-    +FormField('text','WebUserID','Web User ID',{'required':false})
+    +FormField('text','WebUserID','Web User ID',{'required':false, 'ng-maxlength':'20', 'maxlength':'20'})
     +FormSelect('VacancyType','Vacancy Type',[{'Value':'0','Descrip':'Permanent'},{'Value':'1','Descrip':'Temp'},{'Value':'2','Descrip':'Both'}],{'required':true})    
-    +FormSelect('MinimumPay','Minimum Pay',[{'Value':'10000','Descrip':'10000'},{'Value':'15000','Descrip':'15000'},{'Value':'20000','Descrip':'20000'},{'Value':'25000','Descrip':'25000'},{'Value':'30000','Descrip':'30000'}],{'required':false})
-    +FormField('text','MaximumPay','Maximum Pay',{'required':false})
-    +FormField('text','Location','Location',{'required':false,'class':'uppercase', length})
-    +FormField('text','KeywordSearch','Keyword Search',{'required':true})
-    +FormField('text','PageNumber','Page Number',{})
-    +FormField('text','PageSize','Page Size',{})
+    +FormSelect('MinimumPay','Minimum Pay',[{'Value':'10000','Descrip':'10000'},{'Value':'15000','Descrip':'15000'},{'Value':'20000','Descrip':'20000'},{'Value':'25000','Descrip':'25000'},{'Value':'30000','Descrip':'30000'}],{'required':false, 'ng-maxlength':'10', 'maxlength':'10'})
+    +FormField('text','MaximumPay','Maximum Pay',{'required':false, 'ng-maxlength':'10', 'maxlength':'10'})
+    +FormField('text','Location','Location',{'required':false, 'ng-maxlength':'20', 'maxlength':'20','class':'uppercase'})
+    +FormField('text','KeywordSearch','Keyword Search',{'required':true, 'ng-maxlength':'50', 'maxlength':'50'})
+    +FormField('text','PageNumber','Page Number', {'ng-maxlength':'5', 'maxlength':'5', 'width':'2'})
+    +FormField('text','PageSize','Page Size',{'ng-maxlength':'5', 'maxlength':'5'}) 
