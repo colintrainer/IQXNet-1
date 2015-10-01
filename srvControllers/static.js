@@ -2,6 +2,7 @@ var express = require('express')
 var router  = express.Router()
 var path    = require('path')
 
+router.use(express.static(__dirname + '/../assets/custom'))
 router.use(express.static(__dirname + '/../assets'))
 router.use('/views', express.static(__dirname + '/../views'))
 router.use('/template', express.static(__dirname + '/../template'))

@@ -2,8 +2,9 @@ mixin Container
   .container
     block
     
-mixin Form
-  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='update()')
+mixin Form(xAttrs)
+  - xAttrs = xAttrs || {}
+  form.form-horizontal(role='form', novalidate, name='theForm', ng-submit='update()')&attributes(xAttrs)
     block
     .mybottomspacer
     .myerrorspacer(ng-if='formError')

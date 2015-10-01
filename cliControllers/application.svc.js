@@ -42,14 +42,14 @@ angular.module('app')
     svc.isLoggedIn=false
     }
     
-  svc.messageDialog=function (caption, message, okText, cancelText) {
+  svc.messageDialog=function (caption, message, okText, cancelText, bSucceedIfCancel) {
     return $modal.open({
       templateUrl: 'views/modalDialog.html',
       size: 'sm',
       controller:'ModalCtrl',
       resolve: {
         getModalVars: function() {
-          return {title:caption,text:message,yesText:okText,noText:cancelText}
+          return {title:caption,text:message,yesText:okText,noText:cancelText,succeedIfCancel:bSucceedIfCancel}
           }
          }
       }).result

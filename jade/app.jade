@@ -5,13 +5,16 @@ html(ng-app='app')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel='stylesheet', href='/lib/angular-bootstrap-calendar.min.css')
+    link(rel='stylesheet', href='/theme.css')
     link(rel='stylesheet', href='/app.css')
     title IQX Online
   body(ng-controller='ApplicationCtrl')
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container.navbar-container
-        a.navbar-brand(href='/#/')
-          img(alt="ABC",src='/sitelogo.png')
+        .navbar-header.pull-left
+          a.navbar-brand(href='/', target='_top') IQX Online
+        //- a.navbar-brand.navbar-brand-img(href='/#/')
+          //- img(alt="ABC",src='/sitelogo.png')
         button.navbar-toggle(type='button', ng-click='isCollapsed = !isCollapsed')
           span.icon-bar
           span.icon-bar
@@ -26,8 +29,9 @@ html(ng-app='app')
           ul.nav.navbar-nav(ng-if="userClass()=='OWNER'")
             li: a(href='/#/') Home
             li(ng-if="userHasRight('APIDESIGN') && isSwitchedOn('APIDESIGN')"): a(href='/#/apiprocs') API
-          p.navbar-text.navbar-right(ng-if='isLoggedIn()')
-            | Logged in as {{ userName() }} - <a href='/#/login' ng-click='logout()'>Log out</a>
+          ul.nav.navbar-nav.navbar-right(ng-if='isLoggedIn()')
+            li
+              a(href='/#/login', ng-click='logout()') Logged in as {{ userName() }} - Log out
     .mynavspacer
     div(ng-view)
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.0/moment.min.js')

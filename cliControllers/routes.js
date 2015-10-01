@@ -13,11 +13,12 @@ angular.module('app').config(function($routeProvider) {
   .when('/canddiary',{controller:'CandDiaryCtrl',templateUrl:'/views/canddiary.html'})
   .when('/apiprocs',{controller:'APIprocsCtrl',templateUrl:'/views/apiProcs.html'})
   .when('/canddocuments',{controller:'CandDocsCtrl',templateUrl:'/views/canddocuments.html'})
+  .when('/webReference',{controller:'webReferenceCtrl',templateUrl:'/views/webReference.html'})
   })
   .run( function($rootScope, $location, ApplicationSvc) {
     // Register listener to watch route changes
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if ( next.originalPath == '/candregister' ) {
+      if ( next.originalPath == '/candregister' || next.originalPath == '/webReference') {
         ApplicationSvc.setLoggedOut()
         return
       }

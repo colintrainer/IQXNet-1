@@ -1,6 +1,7 @@
 .modal-header
+  button.close(ng-click="$dismiss()")&attributes({'aria-hidden': 'true', 'type':'button'}) &times;
   h3.modal-title {{ xModal.title }}
 .modal-body {{ xModal.text }}
 .modal-footer
   button.btn.btn-primary(ng-click="$close(true)") {{ xModal.yesText }}
-  button.btn.btn-warning(ng-if="xModal.noText", ng-click="$dismiss()") {{ xModal.noText }}
+  button.btn.btn-warning(ng-if="xModal.noText", ng-click="xModal.succeedIfCancel ? $close(false) : $dismiss()") {{ xModal.noText }}
