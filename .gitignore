@@ -5,6 +5,9 @@ dump
 views
 node_modules
 
+# Rejections
+*.rej
+
 # Logs
 logs
 *.log

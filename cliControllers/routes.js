@@ -15,11 +15,12 @@ angular.module('app').config(function($routeProvider) {
   .when('/canddocuments',{controller:'CandDocsCtrl',templateUrl:'/views/canddocuments.html'})
   .when('/jobsearch',{controller:'JobSearchCtrl',templateUrl:'/views/jobsearch.html'})
   .when('/test',{controller:'TestCtrl',templateUrl:'/views/test.html'})
+  .when('/webReference',{controller:'webReferenceCtrl',templateUrl:'/views/webReference.html'})
   })
   .run( function($rootScope, $location, ApplicationSvc) {
     // Register listener to watch route changes
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-      if ( next.originalPath == '/candregister' ) {
+      if ( next.originalPath == '/candregister' || next.originalPath == '/webReference') {
         ApplicationSvc.setLoggedOut()
         return
       }
