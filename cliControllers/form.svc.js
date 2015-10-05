@@ -187,5 +187,14 @@ angular.module('app')
     return rv
     }
     
+  svc.arrayTotal=function(ar,fld) {
+    var rv=0
+    angular.forEach(ar,function(it){
+      if (isFinite(it[fld])) {
+        rv+=parseFloat(it[fld])
+        }
+      })
+    return rv
+    }
 
 })

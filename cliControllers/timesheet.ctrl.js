@@ -12,16 +12,25 @@ angular.module('app')
   $scope.fetchTimesheetShifts=function() {
     return $scope.fetch({fetchAPI:'callresult/nettimesheetshifts?pTempTimesheetID='+$scope.TSID, 
       fetchTarget:'timesheetShifts',multiRow:true,dateFields:['weekenddate','shiftdate']})
+      .then(function(){
+        $scope.timesheetShiftsTotal=FormSvc.arrayTotal($scope.timesheetShifts,'shiftduration')
+      })
     }
   
   $scope.fetchTimesheetTimes=function() {
     return $scope.fetch({fetchAPI:'callresult/nettimesheettimes?pTempTimesheetID='+$scope.TSID, 
       fetchTarget:'timesheetTimes',multiRow:true,dateFields:['weekstartdate','shiftdate'],booleanFields:['dayticked']})
+      .then(function(){
+        $scope.timesheetTimesTotal=FormSvc.arrayTotal($scope.timesheetTimes,'hours')
+      })
     }
   
   $scope.fetchTimesheetRates=function() {
     return $scope.fetch({fetchAPI:'callresult/nettimesheetrates?pTempTimesheetID='+$scope.TSID, 
       fetchTarget:'timesheetRates',multiRow:true})
+      .then(function(){
+        $scope.timesheetRatesTotal=FormSvc.arrayTotal($scope.timesheetRates,'Total')
+      })
     }
   
   $scope.load=function() {
