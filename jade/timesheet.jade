@@ -1,7 +1,7 @@
 include ./standard-blocks.jade
 
 .container-fluid
-  h3 Timesheet {{ timesheet.serialnumber }} 
+  h3 Timesheet {{ timesheet.serialnumber }} - {{ timesheet.weekenddate | date:'dd/MM/yy'}}
   h4(ng-if="userClass()=='CANDIDATE'") {{ timesheet.position }} at {{ timesheet.companyname }}
   h4(ng-if="userClass()=='CLIENT'") {{ timesheet.tempname }} as {{ timesheet.position }}
   h4(ng-if="userClass()=='AGENCY'") {{ timesheet.tempname }} as {{ timesheet.position }} at {{ timesheet.companyname }}

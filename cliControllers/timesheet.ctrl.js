@@ -5,8 +5,7 @@ angular.module('app')
   
   $scope.fetchTimesheet=function() {
     return $scope.fetch({fetchAPI:'callresult/nettimesheet?pTempTimesheetID='+$scope.TSID,
-      fetchTarget:'timesheet',dateFields:['weekenddate','completedat'],
-      })
+      fetchTarget:'timesheet',dateFields:['weekenddate','completedat']})
     }
     
   $scope.fetchTimesheetShifts=function() {
