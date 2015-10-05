@@ -8,7 +8,7 @@ var chai=require('chai')
 chai.use(require('chai-as-promised'))
 var testPassword='pa55word'  // This must the be password for the admin user, whose login id must be ADMINISTRATOR
 
-var iqTest={}
+var iqTest={password:testPassword}
 
 function omniTranslate(x,tp) {
   if (Buffer.isBuffer(x)) {x=x.toString('utf8')}
@@ -24,9 +24,14 @@ function omniTranslate(x,tp) {
 
 iqTest.exec=function(sService,sUser,xData,sMode) {
   xData=xData || {}
+  var opts={parse:false}
+  if (sUser) {
+    opts.username=sUser
+    opts.password=testPassword
+    }
   sMode=sMode || ''   // By default success requires an <IQXResult success="1"> - for other modes see comments below
   var prom=Q.defer();
-  needle.post(config.iqxHubURL+sService, xData, { username: sUser, password: testPassword, parse:false}, function(error, response) {
+  needle.post(config.iqxHubURL+sService, xData, opts, function(error, response) {
     if (error) {return prom.reject(error.message)}
     if (sMode=='status') {return prom.resolve(response.statusCode)}  // Succeed with any REST code
     if (response.statusCode == 200) {  // Success

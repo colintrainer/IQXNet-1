@@ -13,12 +13,12 @@ describe('IQXNet Test', function(){
   it('Reality checks', function(){
     return iq.all([
       expect(exec('IQXCall/NetTestLoop','test.user.nobody',{pReturn:'0:~Success'},'status')).to.eventually.equal(401),  // This login has expired
-/*       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'0:~Success'},'status')).to.eventually.equal(200),
+       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'0:~Success'},'status')).to.eventually.equal(200),
       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'35:~Failure'})).to.be.rejected,
       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'0:~Success'},'IQXFailure')).to.be.rejected,
       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'27:~Failure'},'IQXFailure')).to.eventually.have.property('errornumber','27'),
       expect(exec('IQXCall/NetTestLoop','test.user.candidate',{pReturn:'99:~Not Allowed'},'IQXFailure')).to.eventually.have.property('message','Not Allowed')
- */      ])
+      ])
     })
     
   it('Post candidate details', function(){
@@ -31,6 +31,13 @@ describe('IQXNet Test', function(){
     return iq.all([
       desres.should.eventually.have.deep.property('Row.Forenames','Arthur'),
       desres.should.eventually.have.deep.property('Row.Surname','Jenkins'),
+      ])
+    })
+    
+  it('x-auth checks', function(){
+    return iq.all([
+      expect(exec('IQXCall/NetTestLoop','',{pReturn:'0:~Success'},'status')).to.eventually.equal(401),  // No credentials
+      expect(exec('IQXCall/NetTestLoop','',{"x-auth":'test.user.candidate!'+iq.password,pReturn:'0:~Success'})).to.eventually.to.be.fulfilled
       ])
     })
     
