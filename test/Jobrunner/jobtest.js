@@ -31,7 +31,7 @@ describe('Jobrunner Tests', function(){
   })
   
   it('Waits 1 Second', function(){
-    return expect(exec('IQXJob/Test0sqlWait','test.user.candidate',{},'string')).to.eventually.equal('Done')
+    return expect(exec('IQXJob/Test0sqlWait','test.user.candidate',{},'string')).to.eventually.be.above(999)
   })
   
 

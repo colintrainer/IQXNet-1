@@ -5,8 +5,12 @@ result( "pResult" char(250) )
 begin
   declare "dateofbirth" date;
   declare "bnamechanged" smallint;
+  declare sname1 char(50);
+  declare fname1 char(50);
   declare "ssql" char(255);
   set "bnamechanged" = 0;
+  set sname1='surname';
+  set fname1='forenames';
   set "ssql" = '';
   if not "ppersonid" = any(select "personid" from "iqxnetuserlink" where "iqxnetuserid" = "pwebuserid") then
     select '99:~Permission denied';
@@ -15,15 +19,17 @@ begin
   if "isnull"("pforenames",'') <> "isnull"("poldforenames",'') then
     set "ssql" = "ssql"+',forenames=pforenames';
     set "ssql" = "ssql"+',salutation=getword(pforenames,1)';
-    set "bnamechanged" = 1
+    set "bnamechanged" = 1;
+    set fname1='pforenames';
   end if;
   if "isnull"("psurname",'') <> "isnull"("poldsurname",'') then
     set "ssql" = "ssql"+',surname=psurname';
-    set "bnamechanged" = 1
+    set "bnamechanged" = 1;
+    set sname1='psurname';
   end if;
   if "bnamechanged" = 1 then
-    set "ssql" = "ssql"+',name=string(getword(pforenames,1),'' '',psurname)';
-    set "ssql" = "ssql"+',keyname=makekeyname(string(psurname,'' '',pforenames))'
+    set "ssql" = "ssql"+',name=string(getword('+fname1+',1),'' '','+sname1+')';
+    set "ssql" = "ssql"+',keyname=makekeyname(string('+sname1+','' '','+fname1+'))'
   end if;
   if "isnull"("pgender",'') <> "isnull"("poldgender",'') then
     set "ssql" = "ssql"+',sex=pgender'

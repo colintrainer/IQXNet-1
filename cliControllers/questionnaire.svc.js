@@ -56,10 +56,6 @@ angular.module('app')
           break
         case 'D':
           if (tagValue.value) {newTag.value=moment('1899-12-30').add(tagValue.value,'days').toDate()}  // make date
-          newTag.dateIsOpen=false  // datePicker popup setup
-          newTag.dateOpen=function(event) {
-            dateOpen(event,this)
-            }
           break
         case 'M':
           newTag.value=tagValue.tagchoiceid
@@ -123,6 +119,12 @@ angular.module('app')
       } else {
         choices.unshift({tagchoiceid:'',description:'',value:''})  // Otherwise add a blank choice
       }
+      }
+    if (newTag.tagtype=='D') {  // Date
+      newTag.dateIsOpen=false  // datePicker popup setup
+      newTag.dateOpen=function(event) {
+        dateOpen(event,this)
+        }
       }
     newTag.choices=choices  // Attach the choices
     if (newTag.units) {newTag.description=newTag.description+' ('+newTag.units+')'}

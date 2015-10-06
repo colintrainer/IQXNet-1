@@ -1,8 +1,10 @@
 include ./standard-blocks.jade
 
 .container-fluid
-  h3 Timesheet {{ timesheet.serialnumber }} 
-  h4 {{ timesheet.position }} at {{ timesheet.companyname }}
+  h3 Timesheet {{ timesheet.serialnumber }} - {{ timesheet.weekenddate | date:'dd/MM/yy'}}
+  h4(ng-if="userClass()=='CANDIDATE'") {{ timesheet.position }} at {{ timesheet.companyname }}
+  h4(ng-if="userClass()=='CLIENT'") {{ timesheet.tempname }} as {{ timesheet.position }}
+  h4(ng-if="userClass()=='AGENCY'") {{ timesheet.tempname }} as {{ timesheet.position }} at {{ timesheet.companyname }}
   
   table.table.table-striped(ng-show='shiftTimesheet')
     thead
@@ -19,6 +21,10 @@ include ./standard-blocks.jade
         td {{ shift.timeto }}
         td.textright {{ shift.breakminutes }}
         td.textright {{ shift.shiftduration | number:2 }}
+    tfoot
+      tr
+        th(colspan=4) Total
+        th.textright {{timesheetShiftsTotal | number:2}}
           
   table.table.table-striped(ng-show='timeTimesheet')
     thead
@@ -31,6 +37,10 @@ include ./standard-blocks.jade
         td {{ shift.shiftdate | date:'EEE dd/MM/yy' }}
         td {{ shift.timefrom }}
         td.textright {{ shift.hours | number:2 }}
+    tfoot
+      tr
+        th(colspan=2) Total
+        th.textright {{timesheetTimesTotal | number:2}}
         
   table.table.table-striped
     thead
@@ -47,6 +57,10 @@ include ./standard-blocks.jade
         td.textright {{ rate.Units | number:2 }}
         td.textright {{ rate.Rate | number:2 }}
         td.textright {{ rate.Total | number:2 }}
+    tfoot
+      tr
+        th(colspan=4) Total
+        th.textright {{timesheetRatesTotal | number:2}}
         
   +FormError
   +FormButtonGroup

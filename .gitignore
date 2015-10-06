@@ -4,6 +4,9 @@ dbsql
 dump
 views
 node_modules
+daemon
+
+iqxWebJobs.xml
 
 # Rejections
 *.rej
