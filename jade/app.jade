@@ -34,7 +34,7 @@ html(ng-app='app', ng-controller='ApplicationCtrl')
             li(ng-if="userHasRight('APIDESIGN') && isSwitchedOn('APIDESIGN')"): a(href='/#/jobsearch') Job Search
           ul.nav.navbar-nav.navbar-right(ng-if='isLoggedIn()')
             li
-              a(href='/#/login', ng-click='logout()') Logged in as {{ userName() }} - Log out
+              a(href='/#/login', ng-click='logout()') {{ userName() }} - Log out
     .mynavspacer
     div(ng-view)
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.0/moment.min.js')
