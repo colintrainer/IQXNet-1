@@ -21,7 +21,6 @@ angular.module('app')
     FormSvc.setSubmitted($scope,true)
     ApplicationSvc.messageDialog ('Save & Submit?', 'You can save the form and come back to it at a later date or you can Save & Submit the form (you wont be able to edit it after this)', 'Save & Submit', 'Save ONLY', true)
     .then(function(res){   // res will be true if submitted/completed, false if save only
-        console.log(res)
         $scope.postCompletedForm=res
         $scope.theRecord.Completed=res ? 1 : 0;
         return FormSvc.update($scope,res)  // Do not do the fetch if submitted

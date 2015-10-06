@@ -37,6 +37,11 @@ html(ng-app='app', ng-controller='ApplicationCtrl')
               a(href='/#/login', ng-click='logout()') {{ userName() }} - Log out
     .mynavspacer
     div(ng-view)
+
+    footer.navbar-default.navbar-fixed-bottom.navbar-inverse.webFooter
+      .container
+        p.navbar-brand.footerText {{params.footerText}}
+
     script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.0/moment.min.js')
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.3.18/angular.min.js')
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.3.18/angular-route.min.js')
